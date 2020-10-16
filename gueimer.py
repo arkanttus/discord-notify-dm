@@ -29,14 +29,23 @@ class GueimerClient(discord.Client):
         author = ctx.author
         guild = ctx.guild
         players = role.members
+        players_inviteds = f"Os seguintes players foram convidados para jogar {role.name}: "
         
         for member in players:
             if member == author:
                 continue
+            
             await member.create_dm()
             await member.dm_channel.send(
                 f'Coé {member.name}, {author.name} chamou pra jogar um {role.name} no servidor {guild.name}'
             )
+            players_inviteds += f" {member.name},"
+        
+        await author.create_dm()
+        await author.dm_channel.send(
+            players_inviteds[:-1]
+        )
+        
 
     def is_role_gamer(self, role):
         print(f'{role.id} {role.name}')

@@ -20,10 +20,11 @@ class GueimerClient(discord.Client):
         if message.content == 'GUEI':
             await message.channel.send('É TU')
     
-    def is_role_gamer(self, role):
-        print(role.name)
-        return role.name[0] == '_' and role.name[-1] == '_'
-    
+    async def on_member_join(self, member):
+        role_id = int(settings.CIRCO_DEFAULT_ROLE)
+        role = discord.utils.get(member.guild.roles, id=role_id )
+        await member.add_roles(role)
+
     async def invite_players(self, role, author):
         players = role.members
         
@@ -34,19 +35,9 @@ class GueimerClient(discord.Client):
                 f'Coé {member.name}, {author.name} chamou pra jogar um {role.name}'
             )
 
-
-    '''def get_role_by_msg(self, message):
-        content = message.content
-        role = None
-
-        # Checa se a mensagem é uma menção à um cargo
-        if '<@&' in content[0:3]:
-            role_id = int(content[3:-1])
-            role = discord.utils.get(message.guild.roles, id=role_id)
-
-        return role'''
+    def is_role_gamer(self, role):
+        print(f'{role.id} {role.name}')
+        return role.name[0] == '_' and role.name[-1] == '_'
     
-
-
 client = GueimerClient()
 client.run(settings.TOKEN)

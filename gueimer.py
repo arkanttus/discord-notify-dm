@@ -15,7 +15,7 @@ class GueimerClient(discord.Client):
         if roles:
             for role in roles:
                 if self.is_role_gamer(role):
-                    await self.invite_players(role, message.author)
+                    await self.invite_players(role, message)
 
         if message.content == 'GUEI':
             await message.channel.send('É TU')
@@ -24,15 +24,18 @@ class GueimerClient(discord.Client):
         role_id = int(settings.CIRCO_DEFAULT_ROLE)
         role = discord.utils.get(member.guild.roles, id=role_id )
         await member.add_roles(role)
-
-    async def invite_players(self, role, author):
+    
+    async def invite_players(self, role, ctx):
+        author = ctx.author
+        guild = ctx.guild
         players = role.members
         
         for member in players:
-            print(member)
+            if member == author:
+                continue
             await member.create_dm()
             await member.dm_channel.send(
-                f'Coé {member.name}, {author.name} chamou pra jogar um {role.name}'
+                f'Coé {member.name}, {author.name} chamou pra jogar um {role.name} no servidor {guild.name}'
             )
 
     def is_role_gamer(self, role):

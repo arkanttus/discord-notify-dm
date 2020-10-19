@@ -35,17 +35,23 @@ class GueimerClient(discord.Client):
             if member == author:
                 continue
             
-            await member.create_dm()
-            await member.dm_channel.send(
-                f'Coé {member.name}, {author.name} chamou pra jogar um {role.name} no servidor {guild.name}'
+            try:
+                await member.create_dm()
+                await member.dm_channel.send(
+                    f'Coé {member.name}, {author.name} chamou pra jogar um {role.name} no servidor {guild.name}'
+                )
+                players_inviteds += f" {member.name},"
+            except:
+                print(f'EXCEPTION IN MEMBER: {member.name}')
+                continue
+        
+        try:
+            await author.create_dm()
+            await author.dm_channel.send(
+                players_inviteds[:-1]
             )
-            players_inviteds += f" {member.name},"
-        
-        await author.create_dm()
-        await author.dm_channel.send(
-            players_inviteds[:-1]
-        )
-        
+        except:
+            print(f'EXCEPTION IN AUTHOR: {author.name}')
 
     def is_role_gamer(self, role):
         print(f'{role.id} {role.name}')

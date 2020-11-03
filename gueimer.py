@@ -1,8 +1,12 @@
 import discord
+from discord.ext import commands
 import settings
 
 
-class GueimerClient(discord.Client):
+class GueimerBot(commands.Bot):
+    def __init__(self, intents):
+        super(GueimerBot, self).__init__(command_prefix='!', intents=intents)
+
     async def on_ready(self):
         print(f'{self.user} ta ONLINE poah !')
     
@@ -25,12 +29,19 @@ class GueimerClient(discord.Client):
         role = discord.utils.get(member.guild.roles, id=role_id )
         await member.add_roles(role)
     
+    @commands.command(name='teste')
+    async def teste(self, ctx):
+        print('FKEJFIJIFE')
+        await ctx.send('AKSDKASD')
+        return
+
     async def invite_players(self, role, ctx):
         author = ctx.author
         guild = ctx.guild
         players = role.members
         players_inviteds = f"Os seguintes players foram convidados para jogar {role.name}: "
-        
+        print(role)
+        print(guild)
         for member in players:
             if member == author:
                 continue
@@ -57,5 +68,9 @@ class GueimerClient(discord.Client):
         print(f'{role.id} {role.name}')
         return role.name[0] == '_' and role.name[-1] == '_'
     
-client = GueimerClient()
+
+
+intents = discord.Intents.default()
+intents.members = True
+client = GueimerBot(intents)
 client.run(settings.TOKEN)

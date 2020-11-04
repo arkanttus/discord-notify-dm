@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import settings
+import random
 
 
 class GueimerBot(commands.Bot):
@@ -21,8 +22,10 @@ class GueimerBot(commands.Bot):
                 if self.is_role_gamer(role):
                     await self.invite_players(role, message)
 
-        if message.content == 'GUEI':
-            await message.channel.send('É TU')
+        if message.content.lower() == 'guei':
+            trolls = ['TEU PAI', 'É TU', 'TEU TIO', 'TU Q DEIXA', 'MACHISTA']
+            msg = random.choice(trolls)
+            await message.channel.send(msg)
     
     async def on_member_join(self, member):
         role_id = int(settings.CIRCO_DEFAULT_ROLE)

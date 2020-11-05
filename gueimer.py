@@ -23,7 +23,12 @@ class GueimerBot(commands.Bot):
                     await self.invite_players(role, message)
 
         if message.content.lower() == 'guei':
-            trolls = ['TEU PAI', 'É TU', 'TEU TIO', 'TU Q DEIXA', 'MACHISTA']
+            trolls = ['TEU PAI', 'É TU', 'TEU TIO', 'TU Q DEIXA', 'MACHISTA', 'QUEM ?', 'O BIRO LIRO', 'O BRUNO', 'TE LASCAR']
+            msg = random.choice(trolls)
+            await message.channel.send(msg)
+        
+        if message.content.lower() in ['tu', 'é tu', 'eh tu']:
+            trolls = ['TEU PAI', 'PERGUNTOU ?', 'TEU TIO', 'QUEM ?', 'TE LASCAR']
             msg = random.choice(trolls)
             await message.channel.send(msg)
     

@@ -4,4 +4,4 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TOKEN = os.getenv('DISCORD_TOKEN')
-CIRCO_DEFAULT_ROLE = os.getenv('CIRCO_DEFAULT_ROLE')
+DEFAULT_ROLE_GUILD = os.getenv('DEFAULT_ROLE_GUILD')

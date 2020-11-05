@@ -33,7 +33,7 @@ class GueimerBot(commands.Bot):
             await message.channel.send(msg)
     
     async def on_member_join(self, member):
-        role_id = int(settings.CIRCO_DEFAULT_ROLE)
+        role_id = int(settings.DEFAULT_ROLE_GUILD)
         role = discord.utils.get(member.guild.roles, id=role_id )
         await member.add_roles(role)
     

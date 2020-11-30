@@ -51,7 +51,7 @@ class GueimerBot(commands.Bot):
         print(role)
         print(guild)
         for member in players:
-            if (member == author) or (author.channel is not None and author.channel == member.channel):
+            if (member == author) or (author.voice is not None and member.voice is not None and author.voice.channel == member.voice.channel):
                 continue
             
             try:

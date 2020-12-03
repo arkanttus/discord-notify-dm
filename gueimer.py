@@ -22,15 +22,13 @@ class GueimerBot(commands.Bot):
                 if self.is_role_gamer(role):
                     await self.invite_players(role, message)
 
-        '''if message.content.lower() == 'guei':
-            trolls = ['TEU PAI', 'É TU', 'TEU TIO', 'TU Q DEIXA', 'MACHISTA', 'QUEM ?', 'O BIRO LIRO', 'O BRUNO', 'TE LASCAR']
-            msg = random.choice(trolls)
+        if message.content.lower() in settings.MEMES_PHRASES[0]:
+            msg = random.choice(settings.MEMES_PHRASES[1])
             await message.channel.send(msg)
         
-        if message.content.lower() in ['tu', 'é tu', 'eh tu']:
-            trolls = ['TEU PAI', 'PERGUNTOU ?', 'TEU TIO', 'QUEM ?', 'TE LASCAR']
-            msg = random.choice(trolls)
-            await message.channel.send(msg)'''
+        if message.content.lower() in settings.ANWSER_MEMES[0]:
+            msg = random.choice(settings.ANWSER_MEMES[1])
+            await message.channel.send(msg)
     
     async def on_member_join(self, member):
         role_id = int(settings.DEFAULT_ROLE_GUILD)
